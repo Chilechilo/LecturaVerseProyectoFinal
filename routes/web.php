@@ -14,6 +14,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/readings/report', [ReadingController::class, 'report'])
+    ->name('readings.report');
+    
     Route::resource('readings', ReadingController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

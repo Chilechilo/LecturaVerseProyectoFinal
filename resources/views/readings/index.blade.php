@@ -5,11 +5,17 @@
                 Gestor de lecturas
             </h2>
 
-            <a href="{{ route('readings.create') }}"
-               class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                Nueva lectura
-            </a>
-        </div>
+            <div class="flex gap-2">
+               <a href="{{ route('readings.report') }}"
+                    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Imprimir reporte
+                </a>
+
+                <a href="{{ route('readings.create') }}"
+                    class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+                    Nueva lectura
+                </a>
+            </div>
     </x-slot>
 
     <div class="py-8">

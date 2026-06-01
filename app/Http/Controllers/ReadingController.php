@@ -25,6 +25,40 @@ class ReadingController extends Controller
         return view('readings.index', compact('readings'));
     }
 
+    public function report(Request $request)
+    {
+        $query = Reading::with(['user', 'genre']);
+
+        if (Auth::user()->role !== 'admin') {
+            $query->where('user_id', Auth::id());
+        }
+
+        if ($request->filled('genre_id')) {
+            $query->where('genre_id', $request->genre_id);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        $readings = $query->latest()->get();
+        $genres = Genre::orderBy('name')->get();
+
+        return view('readings.report', compact('readings', 'genres'));
+    }
+
     public function create()
     {
         $genres = Genre::orderBy('name')->get();
